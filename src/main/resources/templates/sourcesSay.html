@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="application/javascript">
+
+        let wsFlurboVurbo;
+        let wsCurrentUser;
+        let wsTimeLeft;
+
+        var totalQueuedUsers;
+        var currentUser;
+        var queueNumber;
+        var sessionId = null;
+        var sent = 0;
+        
+        function connect() {
+        	
+            document.getElementById("sendButton").disabled = true;
+
+            wsFlurboVurbo = new WebSocket("ws://localhost:8080/flurbovurbo");
+            wsFlurboVurbo.onmessage = function (e) {
+                printFlurboVurboMessage(e.data);
+            }
+            
+            wsTimeLeft = new WebSocket("ws://localhost:8080/timeLeft");
+            wsTimeLeft.onmessage = function (e) {
+                printTimeLeftMessage(e.data);
+            }
+            
+            wsCurrentUser = new WebSocket("ws://localhost:8080/currentUser");
+            wsCurrentUser.onmessage = function (e) {
+                printCurrentUserMessage(e.data);
+            }
+            
+        }
+
+        function printTimeLeftMessage(data) {
+            let timeLeftData = JSON.parse(data);
+            document.getElementById("timeLeft").textContent = timeLeftData.timeLeft;
+        }
+        
+        function printTotalQueuedUsers(data) {
+            let totalQueuedData = JSON.parse(data);
+            if ((totalQueuedData.totalQueued != totalQueuedUsers) && (totalQueuedData.totalQueued > 0)) {
+            	console.log("totalQueuedUsers in browser: " + totalQueuedUsers);
+            	console.log("totalQueuedUsers in ws msg: " + totalQueuedData.totalQueued);
+            	if (totalQueuedData.totalQueued < totalQueuedUsers) {
+                	console.log("adjusting my queue number");
+            		queueNumber -= (totalQueuedData.totalQueued < totalQueuedUsers);
+                	console.log("new queue position: " + queueNumber);
+            		document.getElementById("queueNumber").textContent = queueNumber;
+            	}
+            	totalQueuedUsers = totalQueuedData.totalQueued;
+            	document.getElementById("totalQueued").textContent = totalQueuedData.totalQueued;
+            }
+        }
+
+        function printCurrentUserMessage(data) {
+        	if (sent != 1) {
+            	console.log(data)
+                let currentUserData = JSON.parse(data);
+            	
+            	if (currentUserData.sessionId === sessionId) {
+                    document.getElementById("sendButton").disabled = false;
+            		document.getElementById("sendText").textContent = 'Its Your Turn To Contribute!';
+            	}
+                if ((currentUserData.currentUser != currentUser) && (currentUserData.currentUser > 0)) {
+                	currentUser = currentUserData.currentUser;
+                	document.getElementById("currentUser").textContent = currentUserData.sessionId;
+                } 
+        	}
+            printTotalQueuedUsers(data);
+        }
+
+        function printFlurboVurboMessage(data) {
+            let messages = document.getElementById("messages");
+            let messageData = JSON.parse(data);
+            if (sessionId == null) {
+                sessionId = messageData.sessionId;
+            }
+            console.log("my sessionId is: " + sessionId);
+        	document.getElementById("queueNumber").textContent = messageData.queueNumber;
+        	queueNumber = messageData.queueNumber;
+            let newMessage = document.createElement("div");
+            newMessage.innerHTML = messageData.message;
+            messages.appendChild(newMessage);
+        }
+
+        function sendToGroupChat() {
+            sessionId = null;
+            sent = 1;
+    		document.getElementById("sendText").textContent = 'Thank You For Your Contribution!';
+            let messageText = document.getElementById("message").value;
+            console.log("messageText: " + document.getElementById("message").value);
+            document.getElementById("message").value="";
+            document.getElementById("message").disabled = true;
+            document.getElementById("message").value = "Sent";
+            document.getElementById("sendButton").disabled = true;
+            let messageObject = {
+                sessionId: sessionId,
+                message: messageText
+            }
+            wsFlurboVurbo.send(JSON.stringify(messageObject))
+        }
+    </script>
+</head>
+<body onload="connect()">
+
+<table width=100% border=2 cellpadding=2 cellspacing=2>
+    <tr>
+        <td colspan=100%><center>Sources Say!!</center></td>
+    </tr>
+    <tr>
+        <td width=75%>Current User on Clock:</td>
+        <td><label id="currentUser"></label></td>
+    </tr>
+    <tr>
+        <td width=75%>My Queue Position:</td>
+        <td><label id="queueNumber"></label></td>
+    </tr>
+    <tr>
+        <td width=75%>Time Left On Clock For Current User:</td>
+        <td><label id="timeLeft"></label></td>
+    </tr>
+    <tr>
+        <td width=75%>Number of Total Users Queued:</td>
+        <td><label id="totalQueued"></label></td>
+    </tr>
+</table>
+<br>
+<br>
+<table border=2 cellpadding=4 cellspacing=4>
+    <tr>
+        <td>
+            <b>Sources Say:</b>
+        </td>
+        <td>
+            <div id="messages"></div>
+        </td>
+    </tr>
+</table>
+<br>
+<br>
+<div>
+  <input type="text" id="message">
+  <input type="button" id="sendButton" value="send" maxlength=64 onclick="sendToGroupChat()">
+  <br>
+  <b><label id="sendText"></label></b>
+</div>
+
+
+</body>
+</html>
