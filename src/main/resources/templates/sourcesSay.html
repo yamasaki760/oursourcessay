@@ -94,12 +94,11 @@
             }
         	document.getElementById("queueNumber").textContent = messageData.queueNumber;
         	queueNumber = messageData.queueNumber;
-            let newMessage = document.createElement("div");
-            newMessage.innerHTML = messageData.message;
-            messages.appendChild(newMessage);
+            document.getElementById("messages").innerHTML += " ";
+            document.getElementById("messages").innerHTML += messageData.message;
         }
 
-        function sendToGroupChat() {
+        function sendFlurbo() {
             sessionId = null;
             sent = 1;
     		document.getElementById("sendText").textContent = 'Thank You For Your Contribution!';
@@ -199,7 +198,7 @@
 						</h4>
 						<br> <br> <input type="text" id="message"> <input
 							type="button" id="sendButton" value="send" maxlength=64
-							onclick="sendToGroupChat()"> <br> <b><label
+							onclick="sendFlurbo()"> <br> <b><label
 							id="sendText"></label></b>
 					</div>
 				</div>
