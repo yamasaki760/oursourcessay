@@ -36,8 +36,8 @@ public class AmqpConfig {
 	public ConnectionFactory connectionFactory() {
 		CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
 		connectionFactory.setVirtualHost("flurbovurbo");
-		connectionFactory.setUsername("guest");
-		connectionFactory.setPassword("guest");
+		connectionFactory.setUsername("flurbovurbo");
+		connectionFactory.setPassword("flurbovurbo");
 		logger.info("Connection Factory Instantiated");
 		return connectionFactory;
 	}
