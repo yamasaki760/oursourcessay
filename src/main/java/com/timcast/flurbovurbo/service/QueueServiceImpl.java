@@ -51,11 +51,11 @@ public class QueueServiceImpl implements QueueService {
 		
 		Properties props = rabbitAdmin.getQueueProperties(queueName);
 		
-		logger.info(props.toString());
+		logger.debug(props.toString());
 		
 		Integer usersQueued = Integer.parseInt(props.get("QUEUE_MESSAGE_COUNT").toString());
 		
-		logger.info("[" + usersQueued + "] users queued in system for queue: [" + queueName + "]");
+		logger.debug("[" + usersQueued + "] users queued in system for queue: [" + queueName + "]");
 
 		return usersQueued;
 		
