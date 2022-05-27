@@ -77,6 +77,8 @@ public class FlurboTextWebSocketHandler extends TextWebSocketHandler {
 			
 			String appendVurbo = words[0];
 			
+			appendVurbo = appendVurbo.replaceAll("[^a-zA-Z0-9]", "");
+			
 			logger.info("vurbo to append: [" + appendVurbo + "]");
 
 			/**

@@ -16,7 +16,7 @@ import com.timcast.flurbovurbo.handlers.TimeLeftTextWebSocketHandler;
 @Service
 public class ProctorServiceImpl {
 
-	private static final Integer SLEEP_SECONDS = 15;
+	private static final Integer SLEEP_SECONDS = 10;
 
 	private static Logger logger = LoggerFactory.getLogger(ProctorServiceImpl.class);
 

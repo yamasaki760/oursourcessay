@@ -1,12 +1,25 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script type="application/javascript">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description"
+	content="Start your development with Ollie landing page.">
+<meta name="author" content="Devcrud">
+<title>Timcast.com | Our Sources Say ...</title>
+<!-- font icons -->
+<link rel="stylesheet"
+	href="assets/vendors/themify-icons/css/themify-icons.css">
+<!-- owl carousel -->
+<link rel="stylesheet"
+	href="assets/vendors/owl-carousel/css/owl.carousel.css">
+<link rel="stylesheet"
+	href="assets/vendors/owl-carousel/css/owl.theme.default.css">
+<!-- Bootstrap + Ollie main styles -->
+<link rel="stylesheet" href="assets/css/ollie.css">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script type="application/javascript">
 
         let wsFlurboVurbo;
         let wsCurrentUser;
@@ -22,17 +35,17 @@
         	
             document.getElementById("sendButton").disabled = true;
 
-            wsFlurboVurbo = new WebSocket("ws://oursourcessay.com/flurbovurbo");
+            wsFlurboVurbo = new WebSocket("ws://oursourscessay.com/flurbovurbo");
             wsFlurboVurbo.onmessage = function (e) {
                 printFlurboVurboMessage(e.data);
             }
             
-            wsTimeLeft = new WebSocket("ws://oursourcessay.com/timeLeft");
+            wsTimeLeft = new WebSocket("ws://oursourscessay.com/timeLeft");
             wsTimeLeft.onmessage = function (e) {
                 printTimeLeftMessage(e.data);
             }
             
-            wsCurrentUser = new WebSocket("ws://oursourcessay.com/currentUser");
+            wsCurrentUser = new WebSocket("ws://oursourscessay.com/currentUser");
             wsCurrentUser.onmessage = function (e) {
                 printCurrentUserMessage(e.data);
             }
@@ -109,80 +122,216 @@
         }
     </script>
 </head>
-<body onload="connect()">
+<body onload="connect()" data-spy="scroll" data-target=".navbar"
+	data-offset="40" id="home">
+	<nav id="scrollspy"
+		class="navbar navbar-light bg-light navbar-expand-lg fixed-top"
+		data-spy="affix" data-offset-top="20">
+		<div class="container">
+			<a class="navbar-brand" href="#"><img src="assets/imgs/brand.svg"
+				alt="" class="brand-img"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-<table width=100% border=2 cellpadding=2 cellspacing=2>
-    <tr>
-        <td colspan=100%><center>Sources Say!!</center></td>
-    </tr>
-    <tr>
-        <td width=75%>Current User on Clock:</td>
-        <td><label id="currentUser"></label></td>
-    </tr>
-    <tr>
-        <td width=75%>My Queue Position:</td>
-        <td><label id="queueNumber"></label></td>
-    </tr>
-    <tr>
-        <td width=75%>Time Left On Clock For Current User:</td>
-        <td><label id="timeLeft"></label></td>
-    </tr>
-    <tr>
-        <td width=75%>Number of Total Users Queued:</td>
-        <td><label id="totalQueued"></label></td>
-    </tr>
-</table>
-<br>
-<br>
-<table border=2 cellpadding=4 cellspacing=4>
-    <tr>
-        <td>
-            <b>Sources Say:</b>
-        </td>
-        <td>
-            <div id="messages"></div>
-        </td>
-    </tr>
-</table>
-<br>
-<br>
-<div>
-  <input type="text" id="message">
-  <input type="button" id="sendButton" value="send" maxlength=64 onclick="sendToGroupChat()">
-  <br>
-  <b><label id="sendText"></label></b>
-</div>
-<div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <a href="/reset/1">Reset UserQueue And SourcesSay Document</a>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  Notes:
-  <ul>
-      <li>15s per user, regardless of when they hit submit button (can be easily fixed)
-      <li>Click on the Reset link to clear the sources say document and all queued users
-      <li>No fancy UI just so you can take it for a test run and see what you think
-      <li><a href="/listAllFlurbos">View All Flurbos</a> (Admin feature)
-      <li>Best way to test:  open 3-4 browsers to the homepage, and hit reload on each so you get in the queue
-      <li>This way you can see the updates and timers and queue positions for different users
-      <li>when a user submits their word, they get greyed out and cant hit submit again
-      <li>they can reload and join the queue again (we can put logic to restrict number of submissions per day) 
-  </ul>
-</div>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="#home">Home</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#about">About</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#rules">Rules & Notes</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 
+
+	<header id="home" class="header">
+
+		<div class="overlay"></div>
+		<div id="flurbovurbo" class="header flurbo"
+			style="border: 1px solid #000000;" margin-top="10px">
+			<div class="div-table">
+				<div class="div-table-col infos2">
+					<h6>Current User On Clock:</h6>
+				</div>
+				<div class="div-table-col infos2">
+					<h6>
+						<label id="currentUser"></label>
+					</h6>
+				</div>
+				<div class="div-table-row"></div>
+				<div class="div-table-col infos2">
+					<h6>My Queue Position:</h6>
+				</div>
+				<div class="div-table-col infos2">
+					<h6>
+						<label id="queueNumber"></label>
+					</h6>
+				</div>
+				<div class="div-table-row"></div>
+				<div class="div-table-col infos2">
+					<h6>Time Left On Clock For Current User:</h6>
+				</div>
+				<div class="div-table-col infos2">
+					<h6>
+						<label id="timeLeft"></label>
+					</h6>
+				</div>
+				<div class="div-table-row"></div>
+				<div class="div-table-col infos2">
+					<h6>Number of Total Users Queued:</h6>
+				</div>
+				<div class="div-table-col infos2">
+					<h6>
+						<label id="totalQueued"></label>
+					</h6>
+				</div>
+			</di>
+			<br>
+			<div class="div-80">
+				<div class="div-table">
+					<div class="div-table-col infos2">
+						<h3>Our Sources Say ...</h3>
+						<br> <br>
+						<h4>
+							<div id="messages"></div>
+						</h4>
+						<br> <br> <input type="text" id="message"> <input
+							type="button" id="sendButton" value="send" maxlength=64
+							onclick="sendToGroupChat()"> <br> <b><label
+							id="sendText"></label></b>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="infos">
+			<div class="title">
+				<h6 class="subtitle font-weight-normal">Timcast.com</h6>
+				<h5>R&D Software Development Division</h5>
+				<p class="font-small">Flurbos and Vurbos for everyone! Always!</p>
+			</div>
+			<div class="socials text-right">
+				<div class="row justify-content-between">
+					<div class="col">
+						<a class="d-block subtitle"><i class="ti-email pr-2"></i>errivera75@protonmail.com</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+	<section class="section" id="about">
+
+		<div class="container">
+
+			<div class="row align-items-center mr-auto">
+				<div class="col-md-4">
+					<h6 class="xs-font mb-0">thank you for visiting us...</h6>
+					<h3 class="section-title">About Us</h3>
+					<p>We are an application written in Spring Boot with Websockets
+						and a MySQL backend database. We can run on any infrastructure. We
+						are not locked into AWS or any other provider. Compile once, run
+						anywhere. Everything was written using open source software and
+						our code for this project is freely available on GitHub. We do not
+						believe we should ever be designed on written in such a way that
+						we are bound to one (cloud) provider. Vendor lock-in bad!</p>
+
+					<a href="javascript:void(0)">We Were Built With...</a>
+				</div>
+				<div class="col-sm-6 col-md-4 ml-auto">
+					<div class="widget">
+						<div class="icon-wrapper">
+							<i class="ti-calendar"></i>
+						</div>
+						<div class="infos-wrapper">
+							<h4 class="text-primary">Java 11</h4>
+							<p>Free dev language</p>
+						</div>
+					</div>
+					<div class="widget">
+						<div class="icon-wrapper">
+							<i class="ti-face-smile"></i>
+						</div>
+						<div class="infos-wrapper">
+							<h4 class="text-primary">MySQL</h4>
+							<p>Free Open Source Database</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<div class="widget">
+						<div class="icon-wrapper">
+							<i class="ti-star"></i>
+						</div>
+						<div class="infos-wrapper">
+							<h4 class="text-primary">Websockets</h4>
+							<p>Free Tech For Updates To Document</p>
+						</div>
+					</div>
+					<div class="widget">
+						<div class="icon-wrapper">
+							<i class="ti-user"></i>
+						</div>
+						<div class="infos-wrapper">
+							<h4 class="text-primary">Spring Boot</h4>
+							<p>The Best Free Application Framework</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="section" id="rules">
+		<div class="container">
+			<div class="row align-items-center mr-auto">
+				<div class="col-md-10">
+					<h3 class="section-title">Notes</h3>
+					<p>
+					<ul>
+						<li>10s per user, regardless of when they hit submit button
+							(for version1 prototype)
+						<li>Click on the Reset link to clear the sources say document
+							and all queued users
+						<li>No fancy UI just so you can take it for a test run and
+							see what you think
+						<li>Best way to test: open 3-4 browsers to the homepage, and
+							hit reload on each so you get in the queue
+						<li>This way you can see the updates and timers and queue
+							positions for different users
+						<li>when a user submits their word, they get greyed out and
+							cant hit submit again
+						<li>they can reload and join the queue again (we can put
+							logic to restrict number of submissions per day)
+						<li>only one word at a time will be accepted
+						<li>only characters a-z,0-9 will be accepted
+		                <li> <a href="/reset/1">Reset UserQueue And SourcesSay Document</a>
+		                <li>Powered by Chicken City
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- core  -->
+	<script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+	<script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+
+	<!-- bootstrap 3 affix -->
+	<script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+
+	<!-- Owl carousel  -->
+	<script src="assets/vendors/owl-carousel/js/owl.carousel.js"></script>
+
+
+	<!-- Ollie js -->
+	<script src="assets/js/ollie.js"></script>
 </body>
 </html>
