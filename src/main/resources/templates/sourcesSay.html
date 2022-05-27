@@ -60,13 +60,11 @@
         function printTotalQueuedUsers(data) {
             let totalQueuedData = JSON.parse(data);
             if ((totalQueuedData.totalQueued != totalQueuedUsers) && (totalQueuedData.totalQueued > 0)) {
-            	console.log("totalQueuedUsers in browser: " + totalQueuedUsers);
-            	console.log("totalQueuedUsers in ws msg: " + totalQueuedData.totalQueued);
             	if (totalQueuedData.totalQueued < totalQueuedUsers) {
-                	console.log("adjusting my queue number");
             		queueNumber -= (totalQueuedData.totalQueued < totalQueuedUsers);
-                	console.log("new queue position: " + queueNumber);
-            		document.getElementById("queueNumber").textContent = queueNumber;
+            		if (queueNumber >= 0) {
+                   		document.getElementById("queueNumber").textContent = queueNumber;
+                   	}
             	}
             	totalQueuedUsers = totalQueuedData.totalQueued;
             	document.getElementById("totalQueued").textContent = totalQueuedData.totalQueued;
@@ -75,9 +73,7 @@
 
         function printCurrentUserMessage(data) {
         	if (sent != 1) {
-            	console.log(data)
                 let currentUserData = JSON.parse(data);
-            	
             	if (currentUserData.sessionId === sessionId) {
                     document.getElementById("sendButton").disabled = false;
             		document.getElementById("sendText").textContent = 'Its Your Turn To Contribute!';
@@ -96,7 +92,6 @@
             if (sessionId == null) {
                 sessionId = messageData.sessionId;
             }
-            console.log("my sessionId is: " + sessionId);
         	document.getElementById("queueNumber").textContent = messageData.queueNumber;
         	queueNumber = messageData.queueNumber;
             let newMessage = document.createElement("div");
@@ -109,7 +104,6 @@
             sent = 1;
     		document.getElementById("sendText").textContent = 'Thank You For Your Contribution!';
             let messageText = document.getElementById("message").value;
-            console.log("messageText: " + document.getElementById("message").value);
             document.getElementById("message").value="";
             document.getElementById("message").disabled = true;
             document.getElementById("message").value = "Sent";
