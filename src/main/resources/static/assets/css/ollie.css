@@ -11618,6 +11618,7 @@ pre .code {
   opacity: 1;
   font-size: calc(40px + (60 - 40) * ((100vw - 300px) / (1300 - 300)));
   font-weight: bold;
+  padding-left: 20px;
 }
 
 .header .flurbo .right {
@@ -11805,3 +11806,8 @@ pre .code {
   width: 80%;
   border: 5px solid black;
 }
+
+.padded {
+	padding: 20px 20px 20px 30px;
+}
+
