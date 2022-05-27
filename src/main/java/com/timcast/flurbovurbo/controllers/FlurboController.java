@@ -37,6 +37,7 @@ public class FlurboController {
 	public String flushFlurbo(@PathVariable(value="id") int flurboId, Model model) {
 		queueService.flushQueue(flurboId);
 		cacheService.flushCurrentVurboDocument(flurboId);
+		cacheService.appendVurboToFlurbo("", flurboId, "----reset----");
 		return "redirect:/";
 	}
 	

@@ -68,6 +68,9 @@
             	}
             	totalQueuedUsers = totalQueuedData.totalQueued;
             	document.getElementById("totalQueued").textContent = totalQueuedData.totalQueued;
+            } else if (totalQueuedData.totalQueued == 0) {
+            	document.getElementById("totalQueued").textContent = 0;
+           		document.getElementById("queueNumber").textContent = '';
             }
         }
 
@@ -148,28 +151,34 @@
 	<header id="home" class="header">
 
 		<div class="overlay"></div>
-		<div id="flurbovurbo" class="header flurbo"
-			style="border: 1px solid #000000;" margin-top="10px">
+		<div id="flurbovurbo" class="header flurbo" style="border: 1px solid #000000;" margin-top="10px">
 			<div class="div-table">
-				<div class="div-table-col infos2">
+			<!--  
+				<div class="div-table-col infos2 padded-light">
 					<h6>Current User On Clock:</h6>
 				</div>
-				<div class="div-table-col infos2">
+				<div class="div-table-col infos2 padded-light">
 					<h6>
 						<label id="currentUser"></label>
 					</h6>
 				</div>
 				<div class="div-table-row"></div>
-				<div class="div-table-col infos2">
+            -->
+				<div class="div-table-col infos2 padded-light">
+					<h6>When You First Load This Page, You Are Added To The General User Queue</h6>
+					<h6>When Its Your Turn In The Queue, You Will Be Able To Add A Word To The Document (the send button below will become active)</h6>
+				</div>
+				<div class="div-table-row"></div>
+   				<div class="div-table-col infos2 padded-light">
 					<h6>My Queue Position:</h6>
 				</div>
-				<div class="div-table-col infos2">
+				<div class="div-table-col infos2 padded-light">
 					<h6>
 						<label id="queueNumber"></label>
 					</h6>
 				</div>
 				<div class="div-table-row"></div>
-				<div class="div-table-col infos2">
+				<div class="div-table-col infos2 padded-light">
 					<h6>Time Left On Clock For Current User:</h6>
 				</div>
 				<div class="div-table-col infos2">
@@ -178,10 +187,10 @@
 					</h6>
 				</div>
 				<div class="div-table-row"></div>
-				<div class="div-table-col infos2">
+				<div class="div-table-col infos2 padded-light">
 					<h6>Number of Total Users Queued:</h6>
 				</div>
-				<div class="div-table-col infos2">
+				<div class="div-table-col infos2 padded-light">
 					<h6>
 						<label id="totalQueued"></label>
 					</h6>

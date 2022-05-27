@@ -70,7 +70,9 @@ public class ProctorServiceImpl {
 		int totalQueuedUsers = queueService.getQueuedUsersListSize(1);
 		
 		try {
-			currentUserWsHandler.broadcastMessage("{\"totalQueued\":\"" + totalQueuedUsers + "\"}");
+			String json = "{\"totalQueued\":\"" + totalQueuedUsers + "\"}";
+			logger.debug(json);
+			currentUserWsHandler.broadcastMessage(json);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
