@@ -2,7 +2,6 @@ package com.timcast.flurbovurbo.handlers;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -35,10 +34,31 @@ public class FlurboTextWebSocketHandler extends TextWebSocketHandler {
 
 	private List<WebSocketSession> webSocketSessions = Collections.synchronizedList(new ArrayList<>());
 
+	private List<String> badWords;
 	
 	@PostConstruct
 	public void init() {
 		logger.info("im alive");
+		badWords = new ArrayList<String>();
+		
+		badWords.add("dick");
+		badWords.add("pussy");
+		badWords.add("nigger");
+		badWords.add("fuck");
+		badWords.add("cock");
+		badWords.add("cunt");
+		badWords.add("anal");
+		badWords.add("dildo");
+		badWords.add("whore");
+		badWords.add("racist");
+		badWords.add("nazi");
+		badWords.add("fascist");
+		badWords.add("sexist");
+		badWords.add("cuck");
+		badWords.add("pinga");
+		badWords.add("asshole");
+		badWords.add("fucker");
+		
 	}
 
 	@Override
@@ -79,19 +99,27 @@ public class FlurboTextWebSocketHandler extends TextWebSocketHandler {
 			
 			appendVurbo = appendVurbo.replaceAll("[^a-zA-Z0-9]", "");
 			
-			logger.info("vurbo to append: [" + appendVurbo + "]");
+			if (! isBadWord(appendVurbo)) {
+				
+				logger.info("vurbo to append: [" + appendVurbo + "]");
 
-			/**
-			 * 
-			 * dont broadcast message here.  this only works PER JVM 
-			 * 
-			 * we want EVERYONE on EVERY JVM to get the message (use an amqp broker)
-			 * 
-			 */
-			
-			cacheService.appendVurboToFlurbo(session.toString(), 1, appendVurbo);
+				/**
+				 * 
+				 * dont broadcast message here.  this only works PER JVM 
+				 * 
+				 * we want EVERYONE on EVERY JVM to get the message (use an amqp broker)
+				 * 
+				 */
+				
+				cacheService.appendVurboToFlurbo(session.toString(), 1, appendVurbo);
 
-			broadcastMessage(appendVurbo);
+				broadcastMessage(appendVurbo);
+
+			} else {
+				
+				logger.warn("Bad Word Skipped: [" + appendVurbo + "]");
+				
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,5 +137,17 @@ public class FlurboTextWebSocketHandler extends TextWebSocketHandler {
 
 	}
 	
+	private boolean isBadWord(String appendVurbo) {
+		
+		for (String s: badWords) {
+			
+			if (appendVurbo.toLowerCase().contains(s))
+				return true;
+			
+		}
+
+		return false;
+		
+	}
 	
 }
