@@ -35,7 +35,7 @@ public class ProctorServiceImpl {
 	@RabbitListener(queues = "userqueue-1", exclusive = true, containerFactory = "prefetchOneRabbitListenerContainerFactory")
 	public void listen(String in) {
 
-		logger.info("Current User: " + in);
+		logger.debug("Current User: " + in);
 
 		ObjectMapper om = new ObjectMapper();
 
@@ -54,7 +54,7 @@ public class ProctorServiceImpl {
 			for (int i = 1; i <= SLEEP_SECONDS; ++i) {
 				Thread.sleep(1000);
 				String timerMessage = "{\"name\":\"proctorClock\",\"timeLeft\":\"" + (SLEEP_SECONDS - i) + "\"}";
-				logger.info(message);
+				logger.debug(message);
 				currentUserWsHandler.broadcastMessage(message);
 				timeLeftWsHandler.broadcastMessage(timerMessage);
 			}
