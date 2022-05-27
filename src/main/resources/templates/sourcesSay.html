@@ -35,17 +35,17 @@
         	
             document.getElementById("sendButton").disabled = true;
 
-            wsFlurboVurbo = new WebSocket("ws://oursourscessay.com/flurbovurbo");
+            wsFlurboVurbo = new WebSocket("ws://oursourcessay.com/flurbovurbo");
             wsFlurboVurbo.onmessage = function (e) {
                 printFlurboVurboMessage(e.data);
             }
             
-            wsTimeLeft = new WebSocket("ws://oursourscessay.com/timeLeft");
+            wsTimeLeft = new WebSocket("ws://oursourcessay.com/timeLeft");
             wsTimeLeft.onmessage = function (e) {
                 printTimeLeftMessage(e.data);
             }
             
-            wsCurrentUser = new WebSocket("ws://oursourscessay.com/currentUser");
+            wsCurrentUser = new WebSocket("ws://oursourcessay.com/currentUser");
             wsCurrentUser.onmessage = function (e) {
                 printCurrentUserMessage(e.data);
             }
