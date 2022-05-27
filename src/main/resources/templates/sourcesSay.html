@@ -22,17 +22,17 @@
         	
             document.getElementById("sendButton").disabled = true;
 
-            wsFlurboVurbo = new WebSocket("ws://18.207.221.1:8080/flurbovurbo");
+            wsFlurboVurbo = new WebSocket("ws://18.207.221.1/flurbovurbo");
             wsFlurboVurbo.onmessage = function (e) {
                 printFlurboVurboMessage(e.data);
             }
             
-            wsTimeLeft = new WebSocket("ws://18.207.221.1:8080/timeLeft");
+            wsTimeLeft = new WebSocket("ws://18.207.221.1/timeLeft");
             wsTimeLeft.onmessage = function (e) {
                 printTimeLeftMessage(e.data);
             }
             
-            wsCurrentUser = new WebSocket("ws://18.207.221.1:8080/currentUser");
+            wsCurrentUser = new WebSocket("ws://18.207.221.1/currentUser");
             wsCurrentUser.onmessage = function (e) {
                 printCurrentUserMessage(e.data);
             }
